@@ -1,1 +1,49 @@
 //Directed Graph Cycle 
+
+class Solution {
+    public boolean isCyclic(int V, int[][] edges) {
+        // code here
+        ArrayList<Integer>[] adj = new ArrayList[V];
+        for (int i = 0; i < V; i++) {
+            adj[i] = new ArrayList<>();
+        }
+
+        
+        for (int[] edge : edges) {
+            adj[edge[0]].add(edge[1]);
+        }
+
+        int[] vis = new int[V];
+        int[]pathvis = new int[V];
+        
+        for (int i = 0; i < V; i++) {
+            if (vis[i] == 0) {
+                if (dfs(i,adj,vis,pathvis)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    static boolean dfs(int node, ArrayList<Integer>[] adj, int[] vis, int[] pathvis) {
+        vis[node] = 1;
+        pathvis[node]= 1;
+        
+        for (int neigh : adj[node]) {
+            if (vis[neigh] == 0) {
+                if (dfs(neigh, adj,vis, pathvis)==true) {
+                    return true;
+                }
+            } else if(pathvis[neigh] == 1)  {
+                return true; 
+            }
+        }
+        pathvis[node]=0;
+        return false;
+    }
+    
+    
+}
+     
+
+
