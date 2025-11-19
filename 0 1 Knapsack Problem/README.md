@@ -21,7 +21,7 @@ Explanation: Choose the third item (value 30, weight 2) and
 the last item (value 50, weight 3) for a total value of 80.
 
 Constraints:
-2 ≤ val.size() = wt.size() ≤ 103
+2 ≤ val.size() = wt.size() ≤ 103 
 1 ≤ W ≤ 103
 1 ≤ val[i] ≤ 103
 1 ≤ wt[i] ≤ 103
