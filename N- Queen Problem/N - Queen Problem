@@ -1,1 +1,51 @@
+// N Queen Problem
+class Solution {
+    public ArrayList<ArrayList<Integer>> nQueen(int n) {
+        ArrayList<ArrayList<Integer>> results = new ArrayList<>();
+        
+        int[] placement = new int[n]; 
+        
+        boolean[] colOccupied = new boolean[n];
+        boolean[] diag1Occupied = new boolean[2 * n - 1]; 
+        boolean[] diag2Occupied = new boolean[2 * n - 1]; 
+        
+        solve(0, n, placement, colOccupied, diag1Occupied, diag2Occupied, results);
+        
+        return results;
+    }
 
+    private void solve(int row, int n, int[] placement,
+                       boolean[] colOccupied, boolean[] diag1Occupied, boolean[] diag2Occupied,
+                       List<ArrayList<Integer>> results) {
+
+        if (row == n) {
+            ArrayList<Integer> solution = new ArrayList<>();
+            for (int col : placement) {
+                solution.add(col + 1); 
+            }
+            results.add(solution);
+            return;
+        }
+
+        for (int col = 0; col < n; col++) {
+            
+            int mainDiagIndex = (row - col) + (n - 1);
+            int antiDiagIndex = row + col;
+            
+            if (!colOccupied[col] && !diag1Occupied[mainDiagIndex] && !diag2Occupied[antiDiagIndex]) {
+                
+                placement[row] = col;
+                colOccupied[col] = true;
+                diag1Occupied[mainDiagIndex] = true;
+                diag2Occupied[antiDiagIndex] = true;
+                
+                solve(row + 1, n, placement, colOccupied, diag1Occupied, diag2Occupied, results);
+                
+                colOccupied[col] = false;
+                diag1Occupied[mainDiagIndex] = false;
+                diag2Occupied[antiDiagIndex] = false;
+            }
+        }
+        
+    }
+}
